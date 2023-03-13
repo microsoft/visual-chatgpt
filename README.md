@@ -49,8 +49,8 @@ conda activate visgpt
 #  prepare the basic environments
 pip install -r requirements.txt
 
-# prepare your private openAI private key
-export OPENAI_API_KEY={Your_Private_Openai_Key}
+# prepare your private OpenAI private API key
+export OPENAI_API_KEY={Your_Private_Openai_Api_Key}
 
 # Start Visual ChatGPT !
 # Advice for CPU Users
