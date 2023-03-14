@@ -78,7 +78,7 @@ python visual_chatgpt.py --load "ImageCaptioning_cuda:0,ImageEditing_cuda:0,
     Image2Hed_cpu,HedText2Image_cuda:3,Image2Normal_cpu,
     NormalText2Image_cuda:3,Image2Line_cpu,LineText2Image_cuda:3"
                              
-# Advice for CPU Users
+# Advice for DirectML backend Users
 python visual_chatgpt.py --load "ImageCaptioning_dml,Text2Image_dml"
 ```
 
