@@ -1,3 +1,5 @@
+torch
+torchvision
 torch-directml
 langchain==0.0.101
 accelerate
