@@ -156,8 +156,11 @@ class ImageEditing:
         print("Initializing ImageEditing to %s" % device)
         self.device = device
         self.mask_former = MaskFormer(device=self.device)
-        self.revision = 'fp16' if 'cuda' in device else None
-        self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        if isinstance(device, str):
+            self.revision = 'fp16' if 'cuda' in device else None
+            self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        else:
+            self.torch_dtype = torch.float32
         self.inpaint = StableDiffusionInpaintPipeline.from_pretrained(
             "runwayml/stable-diffusion-inpainting", revision=self.revision, torch_dtype=self.torch_dtype).to(device)
 
@@ -195,7 +198,10 @@ class InstructPix2Pix:
     def __init__(self, device):
         print("Initializing InstructPix2Pix to %s" % device)
         self.device = device
-        self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        if isinstance(device, str):
+            self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        else:
+            self.torch_dtype = torch.float32
         self.pipe = StableDiffusionInstructPix2PixPipeline.from_pretrained("timbrooks/instruct-pix2pix",
                                                                            safety_checker=None,
                                                                            torch_dtype=self.torch_dtype).to(device)
@@ -223,7 +229,10 @@ class Text2Image:
     def __init__(self, device):
         print("Initializing Text2Image to %s" % device)
         self.device = device
-        self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        if isinstance(device, str):
+            self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        else:
+            self.torch_dtype = torch.float32
         self.pipe = StableDiffusionPipeline.from_pretrained("runwayml/stable-diffusion-v1-5",
                                                             torch_dtype=self.torch_dtype)
         self.text_refine_tokenizer = AutoTokenizer.from_pretrained("Gustavosta/MagicPrompt-Stable-Diffusion")
@@ -296,7 +305,10 @@ class Image2Canny:
 class CannyText2Image:
     def __init__(self, device):
         print("Initializing CannyText2Image to %s" % device)
-        self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        if isinstance(device, str):
+            self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        else:
+            self.torch_dtype = torch.float32
         self.controlnet = ControlNetModel.from_pretrained("fusing/stable-diffusion-v1-5-controlnet-canny",
                                                           torch_dtype=self.torch_dtype)
         self.pipe = StableDiffusionControlNetPipeline.from_pretrained(
@@ -352,7 +364,10 @@ class Image2Line:
 class LineText2Image:
     def __init__(self, device):
         print("Initializing LineText2Image to %s" % device)
-        self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        if isinstance(device, str):
+            self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        else:
+            self.torch_dtype = torch.float32
         self.controlnet = ControlNetModel.from_pretrained("fusing/stable-diffusion-v1-5-controlnet-mlsd",
                                                           torch_dtype=self.torch_dtype)
         self.pipe = StableDiffusionControlNetPipeline.from_pretrained(
@@ -410,7 +425,10 @@ class Image2Hed:
 class HedText2Image:
     def __init__(self, device):
         print("Initializing HedText2Image to %s" % device)
-        self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        if isinstance(device, str):
+            self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        else:
+            self.torch_dtype = torch.float32
         self.controlnet = ControlNetModel.from_pretrained("fusing/stable-diffusion-v1-5-controlnet-hed",
                                                           torch_dtype=self.torch_dtype)
         self.pipe = StableDiffusionControlNetPipeline.from_pretrained(
@@ -468,7 +486,10 @@ class Image2Scribble:
 class ScribbleText2Image:
     def __init__(self, device):
         print("Initializing ScribbleText2Image to %s" % device)
-        self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        if isinstance(device, str):
+            self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        else:
+            self.torch_dtype = torch.float32
         self.controlnet = ControlNetModel.from_pretrained("fusing/stable-diffusion-v1-5-controlnet-scribble",
                                                           torch_dtype=self.torch_dtype)
         self.pipe = StableDiffusionControlNetPipeline.from_pretrained(
@@ -523,7 +544,10 @@ class Image2Pose:
 class PoseText2Image:
     def __init__(self, device):
         print("Initializing PoseText2Image to %s" % device)
-        self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        if isinstance(device, str):
+            self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        else:
+            self.torch_dtype = torch.float32
         self.controlnet = ControlNetModel.from_pretrained("fusing/stable-diffusion-v1-5-controlnet-openpose",
                                                           torch_dtype=self.torch_dtype)
         self.pipe = StableDiffusionControlNetPipeline.from_pretrained(
@@ -630,7 +654,10 @@ class Image2Seg:
 class SegText2Image:
     def __init__(self, device):
         print("Initializing SegText2Image to %s" % device)
-        self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        if isinstance(device, str):
+            self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        else:
+            self.torch_dtype = torch.float32
         self.controlnet = ControlNetModel.from_pretrained("fusing/stable-diffusion-v1-5-controlnet-seg",
                                                           torch_dtype=self.torch_dtype)
         self.pipe = StableDiffusionControlNetPipeline.from_pretrained(
@@ -689,7 +716,10 @@ class Image2Depth:
 class DepthText2Image:
     def __init__(self, device):
         print("Initializing DepthText2Image to %s" % device)
-        self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        if isinstance(device, str):
+            self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        else:
+            self.torch_dtype = torch.float32
         self.controlnet = ControlNetModel.from_pretrained(
             "fusing/stable-diffusion-v1-5-controlnet-depth", torch_dtype=self.torch_dtype)
         self.pipe = StableDiffusionControlNetPipeline.from_pretrained(
@@ -760,7 +790,10 @@ class Image2Normal:
 class NormalText2Image:
     def __init__(self, device):
         print("Initializing NormalText2Image to %s" % device)
-        self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        if isinstance(device, str):
+            self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        else:
+            self.torch_dtype = torch.float32
         self.controlnet = ControlNetModel.from_pretrained(
             "fusing/stable-diffusion-v1-5-controlnet-normal", torch_dtype=self.torch_dtype)
         self.pipe = StableDiffusionControlNetPipeline.from_pretrained(
@@ -797,7 +830,10 @@ class NormalText2Image:
 class VisualQuestionAnswering:
     def __init__(self, device):
         print("Initializing VisualQuestionAnswering to %s" % device)
-        self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        if isinstance(device, str):
+            self.torch_dtype = torch.float16 if 'cuda' in device else torch.float32
+        else:
+            self.torch_dtype = torch.float32
         self.device = device
         self.processor = BlipProcessor.from_pretrained("Salesforce/blip-vqa-base")
         self.model = BlipForQuestionAnswering.from_pretrained(
