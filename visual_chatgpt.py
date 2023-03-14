@@ -827,6 +827,8 @@ class ConversationBot:
 
         self.models = dict()
         for class_name, device in load_dict.items():
+            if device == "dml":
+                device = torch_directml.device()
             self.models[class_name] = globals()[class_name](device=device)
 
         self.tools = []
