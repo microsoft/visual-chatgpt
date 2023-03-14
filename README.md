@@ -53,6 +53,7 @@ conda create -n visgpt python=3.8
 conda activate visgpt
 
 #  prepare the basic environments
+conda install pytorch torchvision torchaudio cpuonly -c pytorch-nightly
 pip install -r requirements.txt
 
 # prepare your private OpenAI key (for Linux)
