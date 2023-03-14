@@ -2,6 +2,7 @@ import os
 import gradio as gr
 import random
 import torch
+import torch_directml
 import cv2
 import re
 import uuid
